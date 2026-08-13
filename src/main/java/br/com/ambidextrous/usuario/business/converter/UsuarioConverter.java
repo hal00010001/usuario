@@ -6,9 +6,11 @@ import br.com.ambidextrous.usuario.business.dto.UsuarioDTO;
 import br.com.ambidextrous.usuario.entity.Endereco;
 import br.com.ambidextrous.usuario.entity.Telefone;
 import br.com.ambidextrous.usuario.entity.Usuario;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class UsuarioConverter {
 
     public Usuario paraUsuario(UsuarioDTO usuarioDTO) {
