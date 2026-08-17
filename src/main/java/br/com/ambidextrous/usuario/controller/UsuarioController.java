@@ -1,6 +1,8 @@
 package br.com.ambidextrous.usuario.controller;
 
 import br.com.ambidextrous.usuario.business.UsuarioService;
+import br.com.ambidextrous.usuario.business.dto.EnderecoDTO;
+import br.com.ambidextrous.usuario.business.dto.TelefoneDTO;
 import br.com.ambidextrous.usuario.business.dto.UsuarioDTO;
 import br.com.ambidextrous.usuario.entity.Usuario;
 import br.com.ambidextrous.usuario.infrastructure.security.JwtUtil;
@@ -34,7 +36,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Usuario> buscaUsuarioPorEmail(@RequestParam("email") String email) {
+    public ResponseEntity<UsuarioDTO> buscaUsuarioPorEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(usuarioService.buscaUsuarioPorEmail(email));
     }
 
@@ -42,6 +44,23 @@ public class UsuarioController {
     public ResponseEntity<Void> deletaUsuarioPorEmail(@PathVariable("email") String email) {
         usuarioService.deletaUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> update(@RequestBody UsuarioDTO usuarioDTO, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, usuarioDTO));
+    }
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> atualizaEndereco(@RequestBody EnderecoDTO enderecoDTO, @RequestParam("id") Long id) {
+        System.out.println(id);
+        System.out.println(enderecoDTO);
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, enderecoDTO));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO telefoneDTO, @RequestParam("id") Long id) {
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, telefoneDTO));
     }
 
 }
