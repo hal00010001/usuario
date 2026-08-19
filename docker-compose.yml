@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: javanauta-agendador-tarefas
+    restart: no
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres-server"
+      POSTGRES_DB: "db_usuario"
+    ports:
+      - "5432:5432"
+    volumes:
+      # Alterar essa informação para funcionar em sua máquina
+      # A partir da versão 18 do PostgreSQL o diretório dos dados mudou de /var/lib/postgresql/data
+      # para /var/lib/postgresql
+      - ./data-server:/var/lib/postgresql
